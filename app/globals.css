@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-white font-sans text-ink;
+  }
+}
+
+@layer components {
+  /* Small uppercase label used for nav, buttons and section eyebrows */
+  .label-caps {
+    @apply text-[13px] font-semibold uppercase tracking-label;
+  }
+  .btn-primary {
+    @apply label-caps inline-flex min-h-[52px] items-center justify-center bg-forest px-8 text-cream transition-colors hover:bg-forest-hover;
+  }
+  .btn-outline {
+    @apply label-caps inline-flex min-h-[52px] items-center justify-center border border-forest px-8 text-forest transition-colors hover:bg-forest hover:text-cream;
+  }
+  .section-title {
+    @apply font-serif text-[40px] font-medium leading-[1.05] text-forest md:text-[46px];
+  }
+  .page-container {
+    @apply mx-auto w-full max-w-[1440px] px-5 md:px-12;
+  }
+}
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading='lazy'] {
+    clip-path: inset(0.6px);
+  }
+}
+
+a,
+input,
+button {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+}
