@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Footer from 'components/layout/footer';
 import { ProductCard, ProductGrid } from 'components/product-card';
 import { ProductImage } from 'components/product-image';
+import { Reveal } from 'components/reveal';
 import { Wrapper } from 'components/wrapper';
 import { BRAND } from 'lib/brand';
 import { getCollectionProducts, getCollections, getShop, getShopOgImage } from 'lib/fourthwall';
@@ -32,12 +33,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 function SectionHeader({ title, href, linkLabel = 'Shop all' }: { title: string; href: string; linkLabel?: string }) {
   return (
-    <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
+    <Reveal className="mb-9 flex flex-wrap items-end justify-between gap-6">
       <h2 className="section-title">{title}</h2>
       <Link href={href} className="label-caps border-b border-forest pb-1 text-forest hover:text-forest-hover">
         {linkLabel}
       </Link>
-    </div>
+    </Reveal>
   );
 }
 
@@ -115,7 +116,7 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
           <SectionHeader title="New Arrivals" href={shopAllHref} />
           <ProductGrid>
             {newArrivals.map((p, i) => (
-              <ProductCard key={p.handle} product={p} currency={currency} priority={i < 2} />
+              <ProductCard key={p.handle} product={p} currency={currency} priority={i < 2} index={i} />
             ))}
           </ProductGrid>
         </section>
@@ -123,7 +124,7 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
 
       {/* Editorial feature */}
       <section aria-label="Featured story" className="page-container py-14 md:py-[72px]">
-        <div className="flex flex-col bg-sand md:flex-row">
+        <Reveal className="flex flex-col bg-sand md:flex-row">
           <div className="relative md:w-1/2">
             <Image
               src={BRAND.feature.image}
@@ -152,15 +153,15 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {more.length ? (
         <section className="page-container pb-20 pt-10 md:pb-24">
           <SectionHeader title="More to Explore" href={shopAllHref} />
           <ProductGrid>
-            {more.map((p) => (
-              <ProductCard key={p.handle} product={p} currency={currency} />
+            {more.map((p, i) => (
+              <ProductCard key={p.handle} product={p} currency={currency} index={i} />
             ))}
           </ProductGrid>
         </section>
@@ -174,9 +175,9 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
               categoryTiles.length === 1 ? '' : categoryTiles.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'
             )}
           >
-            {categoryTiles.map(({ collection, product }) => (
+            {categoryTiles.map(({ collection, product }, i) => (
+              <Reveal key={collection.handle} delay={i * 120}>
               <Link
-                key={collection.handle}
                 href={`/${currency}/collections/${collection.handle}`}
                 className={clsx(
                   'group relative block overflow-hidden bg-stone',
@@ -195,6 +196,7 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
                   Shop {collection.title}
                 </span>
               </Link>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -202,7 +204,7 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
 
       {/* Instagram band */}
       <section aria-label="Follow us" className="bg-forest text-cream">
-        <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-8 px-6 py-20 md:px-12">
+        <Reveal className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-8 px-6 py-20 md:px-12">
           <div className="flex max-w-[520px] flex-col gap-3">
             <h2 className="font-serif text-[40px] font-medium leading-[1.05] md:text-[44px]">First to know.</h2>
             <p className="text-base leading-relaxed text-[#D9D3C7]">
@@ -217,7 +219,7 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
           >
             @itsorangeapparel
           </a>
-        </div>
+        </Reveal>
       </section>
 
       <Footer currency={currency} />

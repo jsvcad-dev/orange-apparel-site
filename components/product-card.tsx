@@ -1,20 +1,26 @@
 import { ProductImage } from 'components/product-image';
+import { Reveal } from 'components/reveal';
+import clsx from 'clsx';
 import { displayTitle, formatPrice } from 'lib/brand';
 import type { Product } from 'lib/types';
 import Link from 'next/link';
 
 /**
  * Product tile used on the homepage and collection pages:
- * stone background, soft shadow under the garment, name, price and color swatches.
+ * stone background, soft shadow under the garment, name, price and color count.
+ * On devices with a mouse, hovering cross-fades to the product's second photo (e.g. the back),
+ * and cards fade in as they scroll into view, staggered across the row via `index`.
  */
 export function ProductCard({
   product,
   currency,
-  priority = false
+  priority = false,
+  index = 0
 }: {
   product: Product;
   currency: string;
   priority?: boolean;
+  index?: number;
 }) {
   const title = displayTitle(product.title);
   const { minVariantPrice, maxVariantPrice } = product.priceRange;
@@ -23,8 +29,12 @@ export function ProductCard({
       ? formatPrice(minVariantPrice.amount, minVariantPrice.currencyCode)
       : `From ${formatPrice(minVariantPrice.amount, minVariantPrice.currencyCode)}`;
   const colorCount = product.options.find((o) => o.name === 'Color')?.values.length ?? 0;
+  const hoverImage = product.images?.[1];
+  const imageClass =
+    'object-contain p-[9%] drop-shadow-[0_14px_22px_rgba(45,35,25,0.18)] transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.03]';
 
   return (
+    <Reveal delay={(index % 4) * 90}>
     <Link
       href={`/${currency}/product/${product.handle}`}
       prefetch={true}
@@ -39,7 +49,17 @@ export function ProductCard({
             fill
             sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             priority={priority}
-            className="object-contain p-[9%] drop-shadow-[0_14px_22px_rgba(45,35,25,0.18)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            className={clsx(imageClass, hoverImage && 'group-hover:opacity-0')}
+          />
+        ) : null}
+        {hoverImage ? (
+          <ProductImage
+            src={hoverImage.url}
+            transformedSrc={hoverImage.transformedUrl}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+            className={clsx(imageClass, 'opacity-0 group-hover:opacity-100')}
           />
         ) : null}
         {!product.availableForSale ? (
@@ -54,6 +74,7 @@ export function ProductCard({
         {colorCount > 1 ? <p className="text-xs text-muted">{colorCount} colors</p> : null}
       </div>
     </Link>
+    </Reveal>
   );
 }
 

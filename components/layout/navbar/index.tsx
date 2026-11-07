@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CurrencySelector } from './currency';
 import { MobileMenu } from './mobile-menu';
+import { ShrinkHeader } from './shrink-header';
 
 export type NavLink = { label: string; href: string };
 
@@ -46,10 +47,10 @@ export async function Navbar({ currency }: { currency: string }) {
         </Link>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+      <ShrinkHeader>
         <nav
           aria-label="Primary"
-          className="page-container grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3 md:py-[18px]"
+          className="page-container grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3 transition-[padding] duration-500 ease-out md:py-[18px] group-data-[scrolled=true]:py-2 md:group-data-[scrolled=true]:py-2.5"
         >
           <div className="flex items-center">
             <MobileMenu links={links} />
@@ -80,7 +81,7 @@ export async function Navbar({ currency }: { currency: string }) {
               width={534}
               height={132}
               priority
-              className="h-9 w-auto md:h-[46px]"
+              className="h-9 w-auto transition-[height] duration-500 ease-out md:h-[46px] group-data-[scrolled=true]:h-7 md:group-data-[scrolled=true]:h-9"
             />
           </Link>
 
@@ -91,7 +92,7 @@ export async function Navbar({ currency }: { currency: string }) {
             <CartModal />
           </div>
         </nav>
-      </header>
+      </ShrinkHeader>
     </>
   );
 }

@@ -24,10 +24,31 @@
     @apply label-caps inline-flex min-h-[52px] items-center justify-center border border-forest px-8 text-forest transition-colors hover:bg-forest hover:text-cream;
   }
   .section-title {
-    @apply font-serif text-[40px] font-medium leading-[1.05] text-forest md:text-[46px];
+    @apply font-serif text-[34px] font-medium leading-[1.05] text-forest sm:text-[40px] md:text-[46px];
   }
   .page-container {
     @apply mx-auto w-full max-w-[1440px] px-5 md:px-12;
+  }
+}
+
+/* Scroll reveal (see components/reveal.tsx) */
+.reveal-hidden {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+.reveal-shown {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hidden,
+  .reveal-shown {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

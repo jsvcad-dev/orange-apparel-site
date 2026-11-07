@@ -110,7 +110,7 @@ export default async function CollectionPage({
         ) : (
           <ProductGrid>
             {products.map((p, i) => (
-              <ProductCard key={p.handle} product={p} currency={currency} priority={i < 4} />
+              <ProductCard key={p.handle} product={p} currency={currency} priority={i < 4} index={i} />
             ))}
           </ProductGrid>
         )}

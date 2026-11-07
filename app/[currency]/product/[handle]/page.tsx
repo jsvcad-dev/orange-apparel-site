@@ -132,8 +132,8 @@ export default async function ProductPage({ params }: { params: Promise<{ curren
           <section aria-label="Pairs well with" className="page-container pb-24">
             <h2 className="section-title mb-8">Pairs Well With</h2>
             <ProductGrid>
-              {related.map((p) => (
-                <ProductCard key={p.handle} product={p} currency={currency} />
+              {related.map((p, i) => (
+                <ProductCard key={p.handle} product={p} currency={currency} index={i} />
               ))}
             </ProductGrid>
           </section>
