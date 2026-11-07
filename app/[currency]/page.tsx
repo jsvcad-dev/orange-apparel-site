@@ -72,13 +72,17 @@ export default async function HomePage({ params }: { params: Promise<{ currency:
     <Wrapper currency={currency} shop={shop}>
       {/* Hero — products sit on the right of the image, copy on the left. Below 1200px they stack. */}
       <section aria-label="Featured" className="relative overflow-hidden bg-[#0E2E23]">
-        <Image
-          src="/brand/hero.webp"
-          alt="The Good Day Hoodie, Campus Standout Long Sleeve, Sheer Focus Sweater and Legacy Sketch Cap"
+        {/* Served as-is (no re-compression) so the dark gradient stays smooth; the grain in the file prevents banding. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/hero-1600.jpg"
+          srcSet="/brand/hero-1000.jpg 1000w, /brand/hero-1600.jpg 1600w, /brand/hero-2400.jpg 2400w"
+          sizes="100vw"
           width={2400}
           height={1000}
-          priority
-          sizes="100vw"
+          alt="The Good Day Hoodie, Campus Standout Long Sleeve, Sheer Focus Sweater and Legacy Sketch Cap"
+          fetchPriority="high"
+          decoding="async"
           className="block aspect-[4/3] w-full object-cover object-[72%_center] sm:aspect-[16/10] xl:aspect-[12/5] xl:max-h-[780px] xl:object-right"
         />
         <div className="flex flex-col justify-center gap-5 px-6 pb-14 pt-9 sm:px-[6vw] xl:absolute xl:inset-y-0 xl:left-0 xl:w-[46%] xl:py-10 xl:pr-0">
