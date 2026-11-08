@@ -5,7 +5,7 @@ import { ProductImage } from 'components/product-image';
 import { Reveal } from 'components/reveal';
 import { Wrapper } from 'components/wrapper';
 import { BRAND } from 'lib/brand';
-import { getCollectionProducts, getCollections, getShop, getShopOgImage } from 'lib/fourthwall';
+import { getCollectionProducts, getCollections, getShop } from 'lib/fourthwall';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,18 +15,23 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [ogImageUrl, shop] = await Promise.all([getShopOgImage(), getShop()]);
+  const shop = await getShop();
+  // Branded share image (logo + products on forest green) instead of Fourthwall's default.
+  const shareImage = { url: '/brand/share.jpg', width: 1200, height: 630, alt: `${BRAND.name} — ${BRAND.tagline}` };
 
   return {
     title: `${shop.name} — ${BRAND.tagline}`,
     description: BRAND.intro,
     openGraph: {
       type: 'website',
-      images: ogImageUrl ? [{ url: ogImageUrl }] : undefined
+      siteName: BRAND.name,
+      title: `${shop.name} — ${BRAND.tagline}`,
+      description: BRAND.intro,
+      images: [shareImage]
     },
     twitter: {
       card: 'summary_large_image',
-      images: ogImageUrl ? [ogImageUrl] : undefined
+      images: [shareImage.url]
     }
   };
 }
