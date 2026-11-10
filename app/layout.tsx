@@ -5,7 +5,9 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import { GTM_ID } from 'lib/analytics';
 import { getAnalyticsConfig } from 'lib/fourthwall';
+import { RegisterServiceWorker } from 'components/pwa/register-sw';
 import { ensureStartsWith } from 'lib/utils';
+import type { Viewport } from 'next';
 import Script from 'next/script';
 import { ReactNode } from 'react';
 import './globals.css';
@@ -27,6 +29,13 @@ export const metadata = {
     follow: true,
     index: true
   },
+  applicationName: 'Orange Apparel',
+  appleWebApp: {
+    capable: true,
+    title: 'Orange',
+    statusBarStyle: 'default'
+  },
+  formatDetection: { telephone: false },
   ...(twitterCreator &&
     twitterSite && {
       twitter: {
@@ -35,6 +44,12 @@ export const metadata = {
         site: twitterSite
       }
     })
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0E3428',
+  width: 'device-width',
+  initialScale: 1
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
@@ -63,6 +78,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       </head>
       <body className="bg-white text-ink selection:bg-citrus-light/60">
         {children}
+        <RegisterServiceWorker />
       </body>
     </html>
   );
