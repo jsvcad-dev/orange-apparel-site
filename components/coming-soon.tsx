@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { NotifyForm } from 'components/notify-form';
 
 const SPOTLIGHT =
   'radial-gradient(ellipse 85% 65% at 50% 32%, rgba(31,90,69,0.55) 0.0%, rgba(31,90,69,0.5488) 4.69%, rgba(31,90,69,0.5412) 9.38%, rgba(31,90,69,0.5232) 14.06%, rgba(31,90,69,0.4931) 18.75%, rgba(31,90,69,0.451) 23.44%, rgba(31,90,69,0.3986) 28.12%, rgba(31,90,69,0.3388) 32.81%, rgba(31,90,69,0.275) 37.5%, rgba(31,90,69,0.2112) 42.19%, rgba(31,90,69,0.1514) 46.88%, rgba(31,90,69,0.099) 51.56%, rgba(31,90,69,0.0569) 56.25%, rgba(31,90,69,0.0268) 60.94%, rgba(31,90,69,0.0088) 65.62%, rgba(31,90,69,0.0012) 70.31%, rgba(31,90,69,0.0) 75.0%)';
@@ -40,27 +41,21 @@ export function ComingSoon() {
       </header>
 
       <section className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-16 text-center md:py-24">
-        <p className="label-caps tracking-eyebrow text-citrus-light">A note from Orange Apparel</p>
+        <p className="label-caps tracking-eyebrow text-citrus-light">Something new is coming</p>
 
         <h1 className="mt-6 font-serif text-[44px] font-medium leading-[1.02] sm:text-[56px] md:text-[72px]">
-          Made with care.
+          Orange Apparel is evolving
           <br />
-          Made to last.
-          <br />
-          <span className="italic text-citrus-light">Made for a better world.</span>
+          <span className="italic text-citrus-light">with a sharper vision.</span>
         </h1>
 
         <div className="mt-8 h-px w-16 bg-citrus-light/60" />
 
         <p className="mt-8 max-w-xl text-[17px] leading-relaxed text-cream/80 md:text-[18px]">
-          Orange Apparel is built on a simple standard: every piece should earn its place in your life. We
-          design thoughtfully, inspect every detail, and stand behind everything we make, because quality is
-          not only how a garment feels. It is how it is made, and what it leaves behind.
+          Leave your email and you&rsquo;ll be the first to know when we launch.
         </p>
 
-        <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-cream/80 md:text-[18px]">
-          Our debut collection is in its final stages of preparation. We look forward to welcoming you.
-        </p>
+        <NotifyForm />
       </section>
 
       <section className="relative border-t border-forest-line">
