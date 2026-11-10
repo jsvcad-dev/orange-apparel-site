@@ -6,11 +6,15 @@ import { Reveal } from 'components/reveal';
 import { Wrapper } from 'components/wrapper';
 import { BRAND } from 'lib/brand';
 import { getCollectionProducts, getCollections, getShop } from 'lib/fourthwall';
+import { COMING_SOON } from 'lib/launch';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export function generateStaticParams() {
+  // Pre-launch: don't build shop pages from Fourthwall, so a Fourthwall outage or
+  // shop-status change can never break a deploy of the coming-soon page.
+  if (COMING_SOON) return [];
   return [{ currency: 'USD' }, { currency: 'EUR' }, { currency: 'GBP' }, { currency: 'CAD' }];
 }
 

@@ -1,5 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
+const SPOTLIGHT =
+  'radial-gradient(ellipse 85% 65% at 50% 32%, rgba(31,90,69,0.55) 0.0%, rgba(31,90,69,0.5488) 4.69%, rgba(31,90,69,0.5412) 9.38%, rgba(31,90,69,0.5232) 14.06%, rgba(31,90,69,0.4931) 18.75%, rgba(31,90,69,0.451) 23.44%, rgba(31,90,69,0.3986) 28.12%, rgba(31,90,69,0.3388) 32.81%, rgba(31,90,69,0.275) 37.5%, rgba(31,90,69,0.2112) 42.19%, rgba(31,90,69,0.1514) 46.88%, rgba(31,90,69,0.099) 51.56%, rgba(31,90,69,0.0569) 56.25%, rgba(31,90,69,0.0268) 60.94%, rgba(31,90,69,0.0088) 65.62%, rgba(31,90,69,0.0012) 70.31%, rgba(31,90,69,0.0) 75.0%)';
+
+const GRAIN =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
 const pillars = [
   {
     title: 'Quality, without compromise',
@@ -20,18 +26,17 @@ export function ComingSoon() {
 
   return (
     <main className="relative flex min-h-[100svh] flex-col bg-forest-deep text-cream">
-      {/* soft vignette */}
+      {/* Soft spotlight. Many eased color stops + a fine grain layer dither the
+          gradient so no rings/banding show, at any screen resolution. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: SPOTLIGHT }} />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% 30%, rgba(31,90,69,0.55) 0%, rgba(11,42,32,0) 70%)'
-        }}
+        className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-soft-light"
+        style={{ backgroundImage: GRAIN, backgroundSize: '240px 240px' }}
       />
 
       <header className="relative flex justify-center px-6 pt-10 md:pt-14">
-        <img src="/brand/logo-cream.png" alt="Orange Apparel" width={214} height={53} className="h-auto w-[170px] md:w-[214px]" />
+        <img src="/brand/logo-cream.svg" alt="Orange Apparel" width={214} height={53} className="h-auto w-[170px] md:w-[214px]" />
       </header>
 
       <section className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-16 text-center md:py-24">
