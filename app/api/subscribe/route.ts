@@ -5,9 +5,10 @@ import { NextRequest, NextResponse } from 'next/server';
  * Forwards the address to a Kit (kit.com) form, so the list lives in Kit and
  * the launch email can be sent from there.
  *
- * Setup: in Kit, create a form, copy its numeric ID (from the form's URL or
- * embed code) and add it in Vercel as KIT_FORM_ID, then redeploy.
+ * The form ID is public (it appears in Kit's own embed code), so the
+ * default lives here; set KIT_FORM_ID in Vercel to point at a different form.
  */
+const DEFAULT_KIT_FORM_ID = '10172438';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
 
-  const formId = process.env.KIT_FORM_ID;
+  const formId = process.env.KIT_FORM_ID || DEFAULT_KIT_FORM_ID;
   if (!formId || !/^\d+$/.test(formId)) {
     return NextResponse.json(
       { error: 'Signups are not connected yet. Please check back soon.' },
