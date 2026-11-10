@@ -3,6 +3,7 @@ import '@fontsource/cormorant-garamond/600.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
+import { ComingSoon } from 'components/coming-soon';
 import { GTM_ID } from 'lib/analytics';
 import { getAnalyticsConfig } from 'lib/fourthwall';
 import { ensureStartsWith } from 'lib/utils';
@@ -37,6 +38,9 @@ export const metadata = {
     })
 };
 
+// Set NEXT_PUBLIC_COMING_SOON="true" in Vercel to show the pre-launch page on every URL.
+const comingSoon = process.env.NEXT_PUBLIC_COMING_SOON === 'true';
+
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const analytics = await getAnalyticsConfig();
 
@@ -62,7 +66,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </Script>
       </head>
       <body className="bg-white text-ink selection:bg-citrus-light/60">
-        {children}
+        {comingSoon ? <ComingSoon /> : children}
       </body>
     </html>
   );
